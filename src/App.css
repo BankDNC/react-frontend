@@ -1,42 +1,57 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, #11151c 0%, #11151c 35%, #11151c 100%);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.authContainer {
+  display: flex;
+  margin: 25vh auto;
+
+  width: 65%;
+  height: 50vh;
+
+  background-color: white;
+  border-radius: 6px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.authContainer .items {
+  width: 50%;
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid;
+  border-image: linear-gradient(to bottom, white, black, white) 1;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-.card {
-  padding: 2em;
+.formContainer::-webkit-scrollbar {
+  display: none;
 }
 
-.read-the-docs {
-  color: #888;
+.authForm {
+  width: 75%;
+}
+
+.bankInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bankImg {
+  width: 100%;
+}
+
+.registerForm{
+
+  align-items: normal;
+  padding: 5% 0px;
+
 }
