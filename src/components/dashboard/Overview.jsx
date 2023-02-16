@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
 
 export default function Overview() {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
 
-  let data=''
-  
   useEffect(() => {
     var config = {
       method: "get",
@@ -12,20 +13,55 @@ export default function Overview() {
       url: `${import.meta.env.VITE_API_URI}/account`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        "Content-Type": "application/json",
       },
       data: data,
     };
+
     axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }, []);
 
-  
+  if (loading === true) {
+    return <h1>Loading</h1>;
+  }
 
-  return <div>Overview</div>;
+  return (
+    <>
+      {data.length === 0 && (
+        <>
+          <h1>No tiene cuentas Registradas</h1>
+          <h2>Solicitar una cuenta</h2>
+        </>
+      )}
+
+  {data.length > 0 && (
+      <Table className="accountTable" striped bordered hover>
+        <thead>
+          <tr>
+            <th>Nro. Cuenta</th>
+            <th>Tipo de Cuenta</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((account, index) => (
+            <tr key={index}>
+              <td>{account.id}</td>
+              <td>{account.typeAccount}</td>
+              <td>{account.balance}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      )}
+    </>
+    
+  );
 }

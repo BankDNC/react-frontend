@@ -3,6 +3,8 @@ import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import Overview from "./Overview";
 import Transactions from "./Transactions";
 
+import TopBar from "./TopBar";
+
 export default function DashboardPage() {
   const navigate = useNavigate();
 
@@ -11,11 +13,6 @@ export default function DashboardPage() {
       navigate("/auth/login");
     }
   }, []);
-
-  function closeSession(){
-    sessionStorage.clear();
-    location.reload();
-  }
 
   return (
     <div className="appContainer">
@@ -28,24 +25,16 @@ export default function DashboardPage() {
         <nav>
           <ul>
             <li>
-              <NavLink to="./overview">overview</NavLink>
+              <NavLink to="./overview">Vista General</NavLink>
             </li>
             <li>
-              <NavLink to="./transactions">transactions</NavLink>
+              <NavLink to="./transactions">Transacciones</NavLink>
             </li>
           </ul>
         </nav>
       </aside>
       <div className="clientInfo">
-        <div className="topBar">
-          <div className="userInfo">
-            <div className="userLogo"> CO </div>
-            <div>
-              <div className="userName"> Carlos Andres Obando </div>
-              <button className="closeSession" onClick={closeSession}> Cerrar Sesion </button>
-            </div>
-          </div>
-        </div>
+        <TopBar />
         <div className="content">
           <Routes>
             <Route path="/overview" element={<Overview />} />

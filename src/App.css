@@ -144,3 +144,9 @@ ul li a {
  ul li a.active {
   color: #7D4E57;
  }
+
+ .accountTable{
+
+  width: 95%;
+  margin: 20px auto;
+ }
