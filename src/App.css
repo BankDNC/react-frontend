@@ -150,3 +150,14 @@ ul li a {
   width: 95%;
   margin: 20px auto;
  }
+
+ .requestAccount{
+
+  display: block;
+  margin: auto;
+ }
+
+ .centerText{
+
+  text-align: center;
+ }

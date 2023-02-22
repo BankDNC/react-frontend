@@ -11,7 +11,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (sessionStorage.getItem("token") === null) {
       navigate("/auth/login");
-    }
+    } 
   }, []);
 
   return (

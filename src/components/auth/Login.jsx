@@ -10,7 +10,7 @@ const Login = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("token") !== null) {
-      navigate("/dashboard");
+      navigate("/dashboard/overview");
     }     
   }, [])
 
@@ -36,7 +36,7 @@ const Login = () => {
     axios(config)
       .then((res) => {
         sessionStorage.setItem("token", res.data.token);
-        navigate("/overview");
+        navigate("/dashboard/overview");
       })
       .catch((err) => {
         console.log(err);

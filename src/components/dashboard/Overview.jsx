@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import AccountRequestModal from './AccountRequestModal'
 
 export default function Overview() {
   const [data, setData] = useState();
@@ -20,12 +21,12 @@ export default function Overview() {
     axios(config)
       .then(function (response) {
         setData(response.data);
+        
         setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
       });
-
   }, []);
 
   if (loading === true) {
@@ -36,32 +37,33 @@ export default function Overview() {
     <>
       {data.length === 0 && (
         <>
-          <h1>No tiene cuentas Registradas</h1>
-          <h2>Solicitar una cuenta</h2>
+          <h1 className="centerText">No tiene cuentas Registradas</h1>
+          <h2 className="centerText">Solicite una cuenta</h2>
         </>
       )}
 
-  {data.length > 0 && (
-      <Table className="accountTable" striped bordered hover>
-        <thead>
-          <tr>
-            <th>Nro. Cuenta</th>
-            <th>Tipo de Cuenta</th>
-            <th>Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((account, index) => (
-            <tr key={index}>
-              <td>{account.id}</td>
-              <td>{account.typeAccount}</td>
-              <td>{account.balance}</td>
+      {data.length > 0 && (
+        <Table className="accountTable" striped bordered hover>
+          <thead>
+            <tr>
+              <th>Nro. Cuenta</th>
+              <th>Tipo de Cuenta</th>
+              <th>Balance</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {data.map((account, index) => (
+              <tr key={index}>
+                <td>{account.id}</td>
+                <td>{account.typeAccount}</td>
+                <td>{account.balance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       )}
+
+      <AccountRequestModal/>
     </>
-    
   );
 }

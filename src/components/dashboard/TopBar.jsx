@@ -10,8 +10,6 @@ export default function TopBar() {
     if (decodedPayload.decodedToken === null) {
       return;
     }
-
-    console.log(decodedPayload.decodedToken);
   }, [decodedPayload]);
 
   function closeSession() {
