@@ -1,23 +1,28 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  function handleLogin(e) {
+  useEffect(() => {
+    if (sessionStorage.getItem("token") !== null) {
+      navigate("/dashboard/overview");
+    }     
+  }, [])
+
+  function handleLogin(e, email, password) {
     e.preventDefault();
-
-    const email = e.target.email.value;
-    const password = e.target.password.value;
     const data = {
       email,
       password,
     };
     const config = {
       method: "post",
-      url: "https://bankdnc-backend.fly.dev/api/v1/auth/login",
+      url: import.meta.env.VITE_API_URI + "/auth/login",
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,9 +35,8 @@ const Login = () => {
     }
     axios(config)
       .then((res) => {
-        console.log(res.data.token);
-        //sessionStorage.setItem("token", res.data.token);
-        //navigate("/overview");
+        sessionStorage.setItem("token", res.data.token);
+        navigate("/dashboard/overview");
       })
       .catch((err) => {
         console.log(err);
@@ -41,11 +45,17 @@ const Login = () => {
 
   return (
     <div className="items formContainer">
-      <Form className="authForm" onSubmit={handleLogin}>
+      <Form className="authForm" onSubmit={(e) => handleLogin(e, email, password)}>
         <h3>Iniciar sesion</h3>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" name="email" placeholder="Enter email" />
+          <Form.Control
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Form.Text className="text-muted">
             No se compartira tu correo con nadie
           </Form.Text>
@@ -56,6 +66,8 @@ const Login = () => {
             type="password"
             name="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
